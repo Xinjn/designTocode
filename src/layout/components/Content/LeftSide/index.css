@@ -1,0 +1,18 @@
+.wrap {
+  display: flex;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: 100%;
+  border-right: 1px solid rgb(221, 221, 221);
+  background: #fff;
+}
+
+.item {
+  & button {
+    width: 50px;
+  }
+}

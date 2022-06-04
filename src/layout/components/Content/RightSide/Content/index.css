@@ -1,0 +1,25 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+}
+.attrWrap {
+}
+.attrHeader {
+  background: #edeff3;
+}
+
+.styleWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.styleHeader {
+  background: #edeff3;
+}
+.styleOption {
+}
+.styleItem {
+  display: flex;
+  justify-content: space-between;
+}
