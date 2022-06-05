@@ -121,7 +121,7 @@ const Canvas = (props) => {
                     hoverId={item.id} // 获取hover项的index
                     replaceNode={replaceNode}
                     appendChildrenNode={appendChildrenNode}  // 追加子项
-                    moveOutNode={moveOutNode}
+               
                   />
               )
             })

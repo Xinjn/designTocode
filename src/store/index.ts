@@ -49,6 +49,7 @@ const useStore = (
   // 替换项
   const replaceNode = (fromId,toId) => {
     console.log('替换项');
+
     const { codeTree } = states
     const codeTree2 = JSON.parse(JSON.stringify(codeTree))
 
@@ -128,7 +129,6 @@ const useStore = (
       codeTree2?.children.push(fromNode2)
     }
 
-    
     // 删除自身
     if (fromNode?.parentId) {
       const fromParentId = fromNode.parentId

@@ -41,6 +41,13 @@ const Item = (props) => {
 
           const fromId = item.id
           const fromIndex = codeTree.children.findIndex(item => item.id === fromId)
+          let fromNode = null
+          traverse(codeTree, item => {
+            if (item.id === fromId) {
+              fromNode = item
+            }
+          })
+          
           let hoverNode = null
           traverse(codeTree, item => {
             if (item.id === hoverId) {
@@ -48,10 +55,13 @@ const Item = (props) => {
             }
           })
 
-          
-          // 处理节点
-          if (fromId !== hoverId && fromIndex > -1) {
-            
+          // 相同ID立即返回
+          if (fromId === hoverId)return 
+
+
+          // 来自根节点
+          if (fromIndex > -1) {
+            console.log('来自根节点');
             if (!hoverNode?.children) { 
                // 替换项
               replaceNode(fromId, hoverId)
@@ -59,9 +69,14 @@ const Item = (props) => {
               // 追加子项
               appendChildrenNode(fromId,hoverId)
             }
-
-          }else{
-              // 移动到节点
+          } else if (hoverNode.parentId === fromNode.parentId) {
+            console.log('来自其他节点');
+            // 替换项
+            replaceNode(fromId, hoverId)
+      
+          } else {
+            console.log('不存在');
+             // 追加子项
               appendChildrenNode(fromId,hoverId)
           }
          
@@ -104,10 +119,11 @@ const Item = (props) => {
          {item.children && item?.children.map((item,index)=>{
            return (
             <Item 
-              key={index}
-              item={item}
-              hoverId={item.id}
-              appendChildrenNode={appendChildrenNode}
+            key={index} 
+            item={item} 
+            hoverId={item.id} // 获取hover项的index
+            replaceNode={replaceNode}
+            appendChildrenNode={appendChildrenNode}  // 追加子项
             />
            )
          })}
