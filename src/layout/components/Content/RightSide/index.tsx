@@ -3,7 +3,7 @@ import styles from "./index.css"
 import Header from "./Header";
 import Content from "./Content";
 import errorBoundary from "../../errorBoundary";
-import { Store } from "../../../store";
+import { Store } from "../../../../store";
 
 const RightSide = () => {
   // 总数据

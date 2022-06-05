@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.css"
 // Editor
 import CodeMirror from '@uiw/react-codemirror';
-import { Store } from "../../../../../store";
+import { Store } from "../../../../../../store";
 import errorBoundary from "../../../../errorBoundary";
-
 
 
 const CodePanel = (props) => {

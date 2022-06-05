@@ -1,81 +1,46 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
-
+import errorBoundary from "../../errorBoundary";
 import styles from "./index.css"
 // Store
-import { Store } from "../../../store";
+import { Store } from "../../../../store";
 // react-dnd
 import { useDrop } from 'react-dnd';
-import { ItemTypes } from "../../../types";
+import { ItemTypes } from "../../../../types";
 import CustomDragLayer from "./CustomDragLayer";
 // Item
 import Item from "./Item";
 // util
-import { traverse } from "../../../../util";
 import { v1 as uuid } from 'uuid';
-import errorBoundary from "../../errorBoundary";
+import { traverse } from "../../../../util";
+
 
 const Canvas = (props) => {
   // 总数据
   const store = Store.useContainer();
-  const { states, changeStates } = store;
+  const {
+    states,
+    changeStates,
+    appendNode,  // 添加新项
+    appendChildrenNode,  // 追加子项
+    replaceNode, // 替换项
+    removeChildNode   // 移除子项
+  } = store;
   const { codeTree } = states
 
-  // 渲染新节点
-  const appendNode = (item) => {
-    const id = uuid();
-    const codeTree2 = codeTree
-    item['id'] = id
-    codeTree2.children.push(item) 
-
-    console.log('画板渲染新节点',codeTree2);
-    changeStates({codeTree:{...codeTree2}})
-  }
-  // 移动节点：useCallback避免非必要渲染（仅会在某个依赖项改变时才重新计算）
-  const moveNode = useCallback((dragId,hoverId) => {
-    const codeTree2 = codeTree
-
-    let drag = codeTree2.children.find(item=>item.id === dragId)
-    const dragIndex = codeTree2.children.findIndex(item=>item.id === dragId)
-    const hover = codeTree2.children.find(item=>item.id === hoverId)
-    const hoverIndex = codeTree2.children.findIndex(item=>item.id === hoverId)
-
-    console.log('moveNode',drag,dragIndex,hover,hoverIndex);
-
-    // 删除自身
-    codeTree2.children.splice(dragIndex,1)
-    // 添加目标
-    codeTree2.children.splice(hoverIndex,0,drag)
-
-    changeStates({codeTree:{...codeTree2}})
-
-  }, [])
-  // 移入子项
-  const moveToParentNode = (dragId,hoverId) => {
-      console.log('移动子项',dragId,hoverId);
-      const codeTree2 = codeTree
-
-      const drag = codeTree2.children.find(item=>item.id === dragId)
-      const dragIndex = codeTree2.children.findIndex(item=>item.id === dragId)
-      const hover = codeTree2.children.find(item=>item.id === hoverId)
-      const hoverIndex = codeTree2.children.findIndex(item=>item.id === hoverId)
-
-      drag['parentId'] = hoverId
-      hover.children.push(drag)
-      // 删除自身
-      codeTree2.children.splice(dragIndex,1)
-
-      changeStates({codeTree:{...codeTree2}})
-  }
-  // 移出子项
-  const moveOutParentNode = (dragId,hoverId) => {
+  // 移出到其他节点
+  const moveOutNode = (dragId, hoverId) => {
+    console.log('移出到其他节点');
+    
+    if (dragId === hoverId) {
+      return console.log('不能为自身');
+      
+    }
     const codeTree2 = codeTree
 
     const drag = codeTree2.children.find(item=>item.id === dragId)
     const dragIndex = codeTree2.children.findIndex(item=>item.id === dragId)
     const hover = codeTree2.children.find(item=>item.id === hoverId)
     const hoverIndex = codeTree2.children.findIndex(item=>item.id === hoverId)
-
-    console.log('moveOutParentNode',drag,dragIndex,hover,hoverIndex);
 
     // 查找目标 
     traverse(codeTree2,(item)=>{
@@ -105,12 +70,7 @@ const Canvas = (props) => {
     changeStates({codeTree:{...codeTree2}})
   }
 
-  const backNode = (item) =>{
-    console.log('移出子项');
-  }
-
-
-9  // drop
+  // 放置
   const [
     { 
       canDrop, // 是否放置中（进行中）
@@ -133,14 +93,14 @@ const Canvas = (props) => {
         return;
       }
 
-      console.log('画板放置信息',item);
+      console.log('画板放置信息', item);
       
-      if(!item.id){
-        // 渲染节点
+      // 添加新项
+      if (!item.id) {
         appendNode(item)
-      }else{
+      } else {
         // 移出子项
-        backNode(item)
+        removeChildNode(item.id)
       }
     }
   },[])
@@ -159,9 +119,9 @@ const Canvas = (props) => {
                     key={index} 
                     item={item} 
                     hoverId={item.id} // 获取hover项的index
-                    moveNode={moveNode}
-                    moveToParentNode={moveToParentNode}
-                    moveOutParentNode={moveOutParentNode}
+                    replaceNode={replaceNode}
+                    appendChildrenNode={appendChildrenNode}  // 追加子项
+                    moveOutNode={moveOutNode}
                   />
               )
             })

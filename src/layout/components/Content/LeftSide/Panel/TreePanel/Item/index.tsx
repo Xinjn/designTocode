@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import errorBoundary from "../../../../../errorBoundary";
-
 import styles from "./index.css"
 
 const Item = (props) => {

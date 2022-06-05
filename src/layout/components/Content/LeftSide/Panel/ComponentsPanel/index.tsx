@@ -1,13 +1,13 @@
 import React from "react";
-
+import errorBoundary from "../../../../errorBoundary";
 import styles from "./index.css"
 // Store
-import { Store } from "../../../../../store";
+import { Store } from "../../../../../../store";
 // Item
 import Item from "./Item";
 // 组件库JSON
 import component from "./Schema";
-import errorBoundary from "../../../../errorBoundary";
+
 
 const ComponentsPanel = (props) => {
   // 总数据

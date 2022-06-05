@@ -1,7 +1,7 @@
 import React,{ useEffect } from "react";
 import errorBoundary from "../errorBoundary";
 import styles from "./index.css"
-import { Store } from "../../store";
+import { Store } from "../../../store";
 import DSL from "../../../Test";
 
 const Wrap = (content) => {

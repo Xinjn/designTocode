@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import errorBoundary from "../../errorBoundary";
 import styles from "./index.css"
-import { Store } from "../../../store" 
+import { Store } from "../../../../store" 
 import SetPanel from "./Panel";
 // 面板JSON
 import Menus from "./Schema/index.jsx"
-import errorBoundary from "../../errorBoundary";
+
 
 
 const LeftSide = (props) => {

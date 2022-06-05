@@ -2,15 +2,21 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 
 import styles from "./index.css"
 // Store
-import { Store } from "../../../../store";
+import { Store } from "../../../../../store";
 // react-dnd
 import { useDrop, useDrag } from 'react-dnd';
-import { ItemTypes } from "../../../../types";
+import { ItemTypes } from "../../../../../types";
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import errorBoundary from "../../../errorBoundary";
+import { traverse } from "../../../../../util";
 
 const Item = (props) => {
-  const {item,hoverId,moveNode,moveToParentNode,moveOutParentNode} = props
+  const {
+    item,
+    hoverId,
+    appendChildrenNode,  // 追加子项
+    replaceNode,  // 替换项
+  } = props
 
   // 总数据
   const store = Store.useContainer();
@@ -28,29 +34,35 @@ const Item = (props) => {
           }),
           canDrop: monitor.canDrop(),
         }),
-        hover: (item, monitor) => {
-     
-        },
         drop: (item, monitor) => {
           if (monitor.didDrop()) {
             return;
           }
-          const dragId = item.id
-          const dragIndex = codeTree.children.findIndex(item=>item.id === dragId)
-          const hoverIndex = codeTree.children.findIndex(item=>item.id === hoverId)
-          const hover = codeTree.children.find(item=>item.id === hoverId)
 
+          const fromId = item.id
+          const fromIndex = codeTree.children.findIndex(item => item.id === fromId)
+          let hoverNode = null
+          traverse(codeTree, item => {
+            if (item.id === hoverId) {
+              hoverNode = item
+            }
+          })
+
+          
           // 处理节点
-          if (dragId !== hoverId && dragIndex >-1) {
-            if(!hover?.children){ // 移动节点
-              moveNode(dragId,hoverId)
-            }else{ // 移动子项
-              moveToParentNode(dragId,hoverId)
+          if (fromId !== hoverId && fromIndex > -1) {
+            
+            if (!hoverNode?.children) { 
+               // 替换项
+              replaceNode(fromId, hoverId)
+            } else { 
+              // 追加子项
+              appendChildrenNode(fromId,hoverId)
             }
 
           }else{
-            // 移动节点
-            moveOutParentNode(dragId,hoverId)
+              // 移动到节点
+              appendChildrenNode(fromId,hoverId)
           }
          
         },
@@ -95,9 +107,7 @@ const Item = (props) => {
               key={index}
               item={item}
               hoverId={item.id}
-              moveNode={moveNode}
-              moveToParentNode={moveToParentNode}
-              moveOutParentNode={moveOutParentNode}
+              appendChildrenNode={appendChildrenNode}
             />
            )
          })}
@@ -107,7 +117,6 @@ const Item = (props) => {
       </>
     )
   }
-
 
   return ( 
       <div className={styles.wrap} ref={ref} onClick={handlerChoose}>

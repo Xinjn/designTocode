@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
+import errorBoundary from "../../../../errorBoundary";
 import styles from "./index.css"
 // Editor
 import CodeMirror from '@uiw/react-codemirror';
-import { Store } from "../../../../../store";
-import errorBoundary from "../../../../errorBoundary";
+import { Store } from "../../../../../../store";
+
 
 const ShemaPanel = (props) => {
   // 总数据

@@ -18,7 +18,7 @@ const component = [
       {
         componentName: "Image",
         props: {
-          src:'',
+          src:"https://img.alicdn.com/tfs/TB1lle4yQzoK1RjSZFlXXai4VXa-200-64.png",
           style:{
             width:60,
             height:67

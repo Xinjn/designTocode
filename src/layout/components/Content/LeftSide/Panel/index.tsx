@@ -1,8 +1,8 @@
 import React from "react";
-
+import errorBoundary from "../../../errorBoundary";
 import styles from "./index.css"
 // Store
-import { Store } from "../../../../store" 
+import { Store } from "../../../../../store" 
 // Panel
 import ShemaPanel from "./ShemaPanel";
 import ComponentsPanel from "./ComponentsPanel";
@@ -11,7 +11,7 @@ import CodePanel from "./CodePanel";
 // react-dnd
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import errorBoundary from "../../../errorBoundary";
+
 
 
 const Panel = (props) => {
