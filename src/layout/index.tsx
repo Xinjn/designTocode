@@ -5,7 +5,6 @@ import Wrap from './components/Wrap';
 // components
 import Header from "./components/Header"
 import Content from './components/Content';
-import Footer from './components/Footer';
 import "../Test"
 
 function Layout() {
@@ -14,7 +13,6 @@ function Layout() {
           <Wrap>
             <Header />
             <Content />
-            <Footer />
           </Wrap>
       </Store.Provider>
     )

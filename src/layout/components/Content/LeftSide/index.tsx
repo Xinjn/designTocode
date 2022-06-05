@@ -1,9 +1,11 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import styles from "./index.css"
 import { Store } from "../../../store" 
 import SetPanel from "./Panel";
 // 面板JSON
 import Menus from "./Schema/index.jsx"
+import errorBoundary from "../../errorBoundary";
 
 
 const LeftSide = (props) => {
@@ -18,7 +20,7 @@ const LeftSide = (props) => {
           Menus && Menus.length >0 && Menus.map((item,index) => {
             return (
               <div key={index} className={styles.item}>
-                <button type="primary">{item?.name}</button>
+                <button className={styles.menusBtn}>{item?.name}</button>
               </div>
             )
           })
@@ -29,4 +31,4 @@ const LeftSide = (props) => {
   );
 }
 
-export default LeftSide;
+export default errorBoundary(LeftSide);

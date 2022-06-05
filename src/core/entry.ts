@@ -195,8 +195,6 @@ const Entry = (schema, option) => {
   panelDisplay = panelDisplay.concat(exportGlobalCss(schema, option));
     
     
-    console.log(panelDisplay);
-    
   return {
     panelDisplay,
     noTemplate: true,

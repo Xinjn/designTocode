@@ -1,4 +1,5 @@
-import React, {useState ,useCallback,useRef, useEffect} from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+
 import styles from "./index.css"
 // Store
 import { Store } from "../../../store";
@@ -11,6 +12,7 @@ import Item from "./Item";
 // util
 import { traverse } from "../../../../util";
 import { v1 as uuid } from 'uuid';
+import errorBoundary from "../../errorBoundary";
 
 const Canvas = (props) => {
   // 总数据
@@ -107,7 +109,8 @@ const Canvas = (props) => {
     console.log('移出子项');
   }
 
-  // drop
+
+9  // drop
   const [
     { 
       canDrop, // 是否放置中（进行中）
@@ -142,8 +145,6 @@ const Canvas = (props) => {
     }
   },[])
 
-
-
   return ( 
       <div className={styles.wrap} >
         {/* 画布 */}
@@ -171,4 +172,4 @@ const Canvas = (props) => {
   );
 }
 
-export default Canvas;
+export default errorBoundary(Canvas);

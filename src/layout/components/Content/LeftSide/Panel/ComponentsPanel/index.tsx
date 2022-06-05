@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./index.css"
 // Store
 import { Store } from "../../../../../store";
@@ -6,6 +7,7 @@ import { Store } from "../../../../../store";
 import Item from "./Item";
 // 组件库JSON
 import component from "./Schema";
+import errorBoundary from "../../../../errorBoundary";
 
 const ComponentsPanel = (props) => {
   // 总数据
@@ -26,4 +28,4 @@ const ComponentsPanel = (props) => {
   );
 }
 
-export default ComponentsPanel;
+export default errorBoundary(ComponentsPanel);

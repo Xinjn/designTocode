@@ -1,8 +1,10 @@
 import React, { useEffect,useState } from "react";
 import styles from "./index.css"
+
 import { Store } from "../../../../../store";
 import { useDrop } from 'react-dnd';
 import Item from "./Item";
+import errorBoundary from "../../../../errorBoundary";
 
 const DomTree = (props) => {
   // 总数据
@@ -12,7 +14,7 @@ const DomTree = (props) => {
 
 
   return (
-    <div class={styles.wrap} >
+    <div className={styles.wrap} >
       {
         codeTree.children.map((item,index)=>{
           return(
@@ -27,4 +29,4 @@ const DomTree = (props) => {
   );
 }
 
-export default DomTree;
+export default errorBoundary(DomTree);

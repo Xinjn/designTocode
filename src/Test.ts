@@ -7,7 +7,7 @@ const parserBabel = require('prettier/parser-babel')
 const parserCss = require('prettier/parser-postcss')
 const parserMarkDown = require('prettier/parser-markdown')
 
-const data = require('./core/data')
+const schema = require('./core/data')
 import Entry from './core/entry'
 
 // 美化代码
@@ -47,4 +47,11 @@ const options = {
   componentsMap
 }
 
-Entry(data, options)
+const DSL = (data=schema) => {
+  
+  return Entry(data, options)
+}
+
+export default DSL
+
+

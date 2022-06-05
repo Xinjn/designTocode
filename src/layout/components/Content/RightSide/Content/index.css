@@ -1,25 +1,36 @@
 .wrap {
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #eee;
-}
-.attrWrap {
-}
-.attrHeader {
-  background: #edeff3;
+  white-space: nowrap;
 }
 
-.styleWrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+.editor {
 }
-.styleHeader {
-  background: #edeff3;
-}
-.styleOption {
-}
-.styleItem {
+.editorText {
   display: flex;
   justify-content: space-between;
+}
+
+.layout {
+}
+.layout > div {
+  margin-bottom: 5px;
+}
+.layoutHeader {
+  background: #edeff3;
+}
+.layoutPattern {
+  display: flex;
+  justify-content: space-between;
+}
+.layoutMargin {
+  display: flex;
+}
+.layoutPadding {
+  display: flex;
+}
+.layoutSize {
+  display: flex;
 }

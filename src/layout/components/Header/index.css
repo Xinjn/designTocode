@@ -4,8 +4,9 @@
   justify-content: space-between;
   border-bottom: 1px solid rgb(221, 221, 221);
   background-color: #fff;
-  padding: 10px 10px;
+  padding: 0 20px;
 }
+
 .logo {
   font-size: 20px;
   width: 300px;
@@ -17,10 +18,10 @@
 }
 
 .pcOrMobile {
-  width: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .showCode {

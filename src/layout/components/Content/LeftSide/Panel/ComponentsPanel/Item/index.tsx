@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+
 import styles from "./index.css"
 // react-dnd
 import { useDrag } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ItemTypes } from "../../../../../../types";
+import errorBoundary from "../../../../../errorBoundary";
 
 const Item = (props) => {
   const { item } =props
@@ -34,10 +36,10 @@ const Item = (props) => {
   dragPreview(getEmptyImage());
 
   return ( 
-      <div class={styles.wrap} ref={drag}>
+      <div className={styles.wrap} ref={drag}>
         {item?.componentName}
       </div> 
   );
 }
 
-export default Item;
+export default errorBoundary(Item);

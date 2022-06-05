@@ -1,0 +1,22 @@
+.collect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 52px;
+    height: 48px;
+    border-radius: 8px 0 8px 0;
+    background: rgba(79, 79, 89, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+        background: linear-gradient(145deg, #F97676 0%, #F54343 100%);
+    }
+
+    & img {
+        width: 36px;
+        height: 36px;
+    }
+}

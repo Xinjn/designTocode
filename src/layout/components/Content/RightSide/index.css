@@ -1,8 +1,10 @@
 .wrap {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 440px;
   height: 100%;
   border-left: 1px solid rgb(221, 221, 221);
   background: #fff;
+  padding-right: 10px;
+  white-space: nowrap;
 }

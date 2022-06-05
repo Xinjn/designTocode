@@ -1,4 +1,6 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
+import errorBoundary from "../../../../../errorBoundary";
+
 import styles from "./index.css"
 
 const Item = (props) => {
@@ -20,10 +22,10 @@ const Item = (props) => {
     )
   }
   return (
-    <div class={styles.wrap} >
+    <div className={styles.wrap} >
         {render()}
     </div>
   );
 }
 
-export default Item;
+export default errorBoundary(Item);

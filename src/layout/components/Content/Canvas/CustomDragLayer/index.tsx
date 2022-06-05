@@ -1,7 +1,9 @@
 import React from "react";
+
 import styles from "./index.css"
 // useDragLayer:自定义拖拽图层
 import { useDragLayer } from 'react-dnd';
+import errorBoundary from "../../../errorBoundary";
 
 
 const CustomDragLayer = (props) => {
@@ -20,7 +22,7 @@ const CustomDragLayer = (props) => {
        <div 
         className={styles.item} 
         style={{
-          transform: `translate(${clientOffset.x - 10}px, ${clientOffset.y - 10}px)`,
+          transform: `translate(${clientOffset.x - 40}px, ${clientOffset.y - 15}px)`,
         }}
       >
         {item.componentName}
@@ -30,4 +32,4 @@ const CustomDragLayer = (props) => {
   );
 }
 
-export default CustomDragLayer;
+export default errorBoundary(CustomDragLayer);

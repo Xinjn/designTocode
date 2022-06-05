@@ -1,4 +1,5 @@
-import React, {useState ,useCallback,useRef, useEffect} from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+
 import styles from "./index.css"
 // Store
 import { Store } from "../../../../store";
@@ -6,6 +7,7 @@ import { Store } from "../../../../store";
 import { useDrop, useDrag } from 'react-dnd';
 import { ItemTypes } from "../../../../types";
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import errorBoundary from "../../../errorBoundary";
 
 const Item = (props) => {
   const {item,hoverId,moveNode,moveToParentNode,moveOutParentNode} = props
@@ -13,7 +15,7 @@ const Item = (props) => {
   // 总数据
   const store = Store.useContainer();
   const { states, changeStates } = store;
-  const { codeTree } = states
+  const { codeTree,currentItem } = states
 
   const ref = useRef(null)
 
@@ -77,10 +79,15 @@ const Item = (props) => {
   dragPreview(getEmptyImage())
   drag(drop(ref));
 
+
+  const handlerChoose = () => {
+    console.log(item);
+    changeStates({currentItem:item})
+  }
+
   const render = () => {
     return (
       <>
-
          {item?.componentName}
          {item.children && item?.children.map((item,index)=>{
            return (
@@ -103,10 +110,10 @@ const Item = (props) => {
 
 
   return ( 
-      <div className={styles.wrap} ref={ref}>
+      <div className={styles.wrap} ref={ref} onClick={handlerChoose}>
         {render()}
       </div>
   );
 }
 
-export default Item;
+export default errorBoundary(Item);

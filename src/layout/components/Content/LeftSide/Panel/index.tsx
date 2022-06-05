@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./index.css"
 // Store
 import { Store } from "../../../../store" 
@@ -10,6 +11,7 @@ import CodePanel from "./CodePanel";
 // react-dnd
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import errorBoundary from "../../../errorBoundary";
 
 
 const Panel = (props) => {
@@ -18,7 +20,7 @@ const Panel = (props) => {
   const {schemaPanel,componentPanel,treePanel,codePanel} = states
 
   return (
-    <div class={styles.wrap}>
+    <div className={styles.wrap}>
       {componentPanel && (
         	<DndProvider backend={HTML5Backend}>
               <ComponentsPanel />
@@ -31,4 +33,4 @@ const Panel = (props) => {
   );
 }
 
-export default Panel;
+export default errorBoundary(Panel);
