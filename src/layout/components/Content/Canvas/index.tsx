@@ -13,62 +13,21 @@ import Item from "./Item";
 import { v1 as uuid } from 'uuid';
 import { traverse } from "../../../../util";
 
-
 const Canvas = (props) => {
   // 总数据
   const store = Store.useContainer();
   const {
     states,
-    changeStates,
     appendNode,  // 添加新项
     appendChildrenNode,  // 追加子项
     replaceNode, // 替换项
     removeChildNode   // 移除子项
   } = store;
+
   const { codeTree } = states
 
-  // 移出到其他节点
-  const moveOutNode = (dragId, hoverId) => {
-    console.log('移出到其他节点');
-    
-    if (dragId === hoverId) {
-      return console.log('不能为自身');
-      
-    }
-    const codeTree2 = codeTree
 
-    const drag = codeTree2.children.find(item=>item.id === dragId)
-    const dragIndex = codeTree2.children.findIndex(item=>item.id === dragId)
-    const hover = codeTree2.children.find(item=>item.id === hoverId)
-    const hoverIndex = codeTree2.children.findIndex(item=>item.id === hoverId)
 
-    // 查找目标 
-    traverse(codeTree2,(item)=>{
-      // 添加目标
-      if(item.id === dragId){
-        const drag2 = item
-        const dragParentId = item.parentId
-        // 删除父级ID属性
-        delete item.parentId;
-        // 删除自身
-        if(dragParentId){
-            // 查找父级 
-            traverse(codeTree2,(item)=>{
-              if(item.id === dragParentId){
-                const dragParent = item
-    
-                dragParent.children.splice(dragIndex,1)
-              }
-            })
-        }
-
-        // 添加目标
-        codeTree2.children.splice(hoverIndex,0,drag2)
-      }
-    })
-
-    changeStates({codeTree:{...codeTree2}})
-  }
 
   // 放置
   const [
@@ -97,6 +56,7 @@ const Canvas = (props) => {
       
       // 添加新项
       if (!item.id) {
+        
         appendNode(item)
       } else {
         // 移出子项

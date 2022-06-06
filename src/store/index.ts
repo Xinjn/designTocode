@@ -31,6 +31,7 @@ const useStore = (
     setStates((states) => Object.assign({}, states, newStates));
   };
 
+
   // 添加新项
   const appendNode = (item) => {
     console.log('添加新项');
@@ -39,11 +40,15 @@ const useStore = (
     const id = uuid();
     const codeTree2 = codeTree
     
-    item['id'] = id
-    codeTree2.children.push(item) 
+    codeTree2?.children.push({
+      ...item,
+      id:id
+    })
 
     // 更新数据
-    changeStates({codeTree:{...codeTree,...codeTree2}})
+    changeStates({ codeTree: { ...codeTree, ...codeTree2 } })
+    
+
   }
 
   // 替换项
@@ -51,7 +56,7 @@ const useStore = (
     console.log('替换项');
 
     const { codeTree } = states
-    const codeTree2 = JSON.parse(JSON.stringify(codeTree))
+    const codeTree2 = codeTree
 
     // 相同ID不拖拽
     if (fromId === toId) return console.log('不能为自身');
@@ -156,7 +161,7 @@ const useStore = (
   const removeChildNode = (id) => {
     console.log('移除子项');
     const { codeTree } = states
-    const codeTree2 = JSON.parse(JSON.stringify(codeTree))
+    const codeTree2 = codeTree
 
     let fromNode = null
     let parentId = ''
