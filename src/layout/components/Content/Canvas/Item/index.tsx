@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useRef } from "react";
 
 import styles from "./index.css"
 // Store

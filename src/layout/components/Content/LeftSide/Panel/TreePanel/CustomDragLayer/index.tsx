@@ -1,9 +1,8 @@
 import React from "react";
-import errorBoundary from "../../../errorBoundary";
+import errorBoundary from "../../../../../errorBoundary";
 import styles from "./index.css"
 // useDragLayer:自定义拖拽图层
 import { useDragLayer } from 'react-dnd';
-
 
 const CustomDragLayer = (props) => {
 

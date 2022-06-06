@@ -26,7 +26,11 @@ const Panel = (props) => {
               <ComponentsPanel />
           </DndProvider>
       )}
-      {treePanel && <TreePanel />}
+            {treePanel && (
+        	<DndProvider backend={HTML5Backend}>
+              <TreePanel />
+          </DndProvider>
+      )}
       {schemaPanel && <ShemaPanel />}
       {codePanel && <CodePanel />  }
     </div>

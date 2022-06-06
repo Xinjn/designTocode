@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React from "react";
 import errorBoundary from "../../errorBoundary";
 import styles from "./index.css"
 // Store
@@ -9,9 +9,6 @@ import { ItemTypes } from "../../../../types";
 import CustomDragLayer from "./CustomDragLayer";
 // Item
 import Item from "./Item";
-// util
-import { v1 as uuid } from 'uuid';
-import { traverse } from "../../../../util";
 
 const Canvas = (props) => {
   // 总数据
@@ -25,9 +22,6 @@ const Canvas = (props) => {
   } = store;
 
   const { codeTree } = states
-
-
-
 
   // 放置
   const [

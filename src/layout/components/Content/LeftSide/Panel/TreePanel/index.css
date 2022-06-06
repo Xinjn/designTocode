@@ -5,20 +5,11 @@
   width: 100px;
   border-right: 1px solid rgb(221, 221, 221);
 }
-.tree {
-  background: #fff;
+
+.canvas {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 10%);
-}
-.page {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  background-color: #e6e6e6;
-  margin: 20px;
-}
-.node {
-  padding: 10px 10px;
-}
-.item {
-  background-color: #cccccc;
+  background: #fff;
+  width: 100%;
+  height: 100%;
 }
