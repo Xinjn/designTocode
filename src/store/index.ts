@@ -22,7 +22,7 @@ const useStore = (
     schemaPanel: true, // schema面板
     codePanel: true, // 代码面板
     output: '', // 出码
-    currentItem:{} // 当前组件
+    currentDom:null // 当前组件
   }
 ) => {
   const [states, setStates] = useState(initialState);

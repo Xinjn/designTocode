@@ -9,13 +9,12 @@ const RightSide = () => {
   // 总数据
   const store = Store.useContainer();
   const { states, changeStates } = store;
-  const {currentItem} = states
+  const {currentDom} = states
   
-
   return (
     <div className={styles.wrap}>
       <Header />
-      <Content content={currentItem}/>
+      <Content dom={currentDom}/>
     </div>
   );
 }

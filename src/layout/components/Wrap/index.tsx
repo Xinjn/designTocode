@@ -13,9 +13,11 @@ const Wrap = (content) => {
   useEffect(() => {
     if (codeTree) {
       const output = DSL(JSON.parse(JSON.stringify(codeTree)))
-      const panelDisplay = output.panelDisplay[0]
-      const panelValue = panelDisplay['panelValue']
-      changeStates({output:panelValue})
+      console.log('出码：',output);
+      
+      // const panelDisplay = output.panelDisplay[0]
+      // const panelValue = panelDisplay['panelValue']
+      // changeStates({output:panelValue})
     }
   },[codeTree])
 

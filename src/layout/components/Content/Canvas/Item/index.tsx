@@ -21,7 +21,7 @@ const Item = (props) => {
   // 总数据
   const store = Store.useContainer();
   const { states, changeStates } = store;
-  const { codeTree,currentItem } = states
+  const { codeTree } = states
 
   const ref = useRef(null)
 
@@ -62,17 +62,19 @@ const Item = (props) => {
           // 来自根节点
           if (fromIndex > -1) {
             console.log('来自根节点');
-            if (!hoverNode?.children) { 
+            
+            
+            if (!hoverNode?.children && !hoverNode.parentId) { 
                // 替换项
               replaceNode(fromId, hoverId)
             } else { 
               // 追加子项
               appendChildrenNode(fromId,hoverId)
             }
+
           } else if (hoverNode.parentId === fromNode.parentId) {
-            console.log('来自其他节点');
-            // 替换项
-            replaceNode(fromId, hoverId)
+            console.log('来自其他节点',hoverNode.parentId,fromNode.parentId);
+            return console.log('在子节点中不拖拽')
       
           } else {
             console.log('不存在');
@@ -107,9 +109,9 @@ const Item = (props) => {
   drag(drop(ref));
 
 
-  const handlerChoose = () => {
-    console.log(item);
-    changeStates({currentItem:item})
+  const handlerChoose = (e) => {
+    const dom = e.target
+    changeStates({currentDom:dom})
   }
 
   const render = () => {

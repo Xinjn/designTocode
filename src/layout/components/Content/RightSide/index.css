@@ -1,8 +1,7 @@
 .wrap {
   display: flex;
   flex-direction: column;
-  width: 440px;
-  height: 100%;
+  width: 300px;
   border-left: 1px solid rgb(221, 221, 221);
   background: #fff;
   padding-right: 10px;
