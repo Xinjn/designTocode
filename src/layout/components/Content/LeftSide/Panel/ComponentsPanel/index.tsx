@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import errorBoundary from "../../../../errorBoundary";
 import styles from "./index.css"
 // Store
@@ -10,9 +10,6 @@ import component from "./Schema";
 
 
 const ComponentsPanel = (props) => {
-  // 总数据
-  const store = Store.useContainer();
-  const { states, changeStates } = store;
 
   return ( 
       <div className={styles.wrap} >

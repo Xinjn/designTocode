@@ -1,66 +1,80 @@
 import React, { useEffect, useState } from "react";
 import errorBoundary from "../../../errorBoundary";
 import styles from "./index.css"
+// Store
+import { Store } from "../../../../../store";
 // components
 import LayoutStyle from "./LayoutStyle";
 import LocationStyle from "./LocationStyle";
 import BackgroundStyle from "./BackgroundStyle";
 import FrameStyle from "./FrameStyle";
-const Content = (content) => {
-  console.log('content', content);
-  const { dom } = content
-  // Dom信息
-  const [domHtml,setDomHtml] = useState(null)
-  const [domStyle,setDomStyle] = useState(null)
+import SelectStyle from "./SelectStyle";
+import { traverse } from "../../../../../util";
+
+
+const Content = ({props}) => {
+    // 总数据
+    const store = Store.useContainer();
+    const { states, changeStates } = store;
+    const { codeTree, currentId } = states
+
+    const [currentNode, setCurrentNode] = useState(null)
   
-  useEffect(() => {
-    if (dom) {
-      let style = window.getComputedStyle(dom, null);
-      setDomHtml(dom)
-      setDomStyle(style)
+    // 获取目标节点
+    const getCurrentNode = () => {
+      traverse(codeTree, item => {
+        if (item.id === currentId) {
+          setCurrentNode(item)
+          
+          return false
+        }
+        return true
+      })
     }
-  }, [dom])
   
-  // useEffect(() => {
-  //   if (domStyle) {
-  //     console.log('domStyle',domStyle);
-      
-  //   }
-  // },[domStyle])
+    useEffect(() => {
+      if (currentId) {
+        getCurrentNode()
+      }
+    }, [currentId])
+    
+    // 更新数据
+    useEffect(() => {
+      getCurrentNode()
+    },[codeTree])
+
+  const onUpdateLayoutPattern = (value) => {
+    if (!currentNode) return alert('未选中节点')
+    
+    // 改变JSON
+    if (value) {
+      const codeTree2 = codeTree
+      codeTree2.props.style[`display`] = value;
+      changeStates({codeTree:{...codeTree,...codeTree2}})
+    }
+  }
+  
+  const onUpdateScale = (name, value) => {
+    if (!currentNode) return alert('未选中节点')
+    
+    // 改变JSON
+    if (name && value) {
+      const codeTree2 = codeTree
+      codeTree2.props.style[`${name}`] = value;
+      codeTree2?.rect[`${name}`] ? codeTree2.rect[`${name}`] = parseInt(value,10) : null
+      changeStates({codeTree:{...codeTree,...codeTree2}})
+    }
+  }
+
 
   return (
-    // content?.componentName
-    // ? 
      <div className={styles.wrap}> 
-      
-        <div className={styles.editor}>
-          <div>当前选中：{domHtml?.localName}</div>
-          <div className={styles.editorText}>
-            <div>{domHtml?.className}编辑</div>
-            <div>复制样式</div>
-        </div>
-        <div className={styles.editorStyle}>
-          <div>
-          { domStyle?.position && `position:${domStyle.position}`}
-          </div>
-          <div>
-          {domStyle?.width && `width:${domStyle.width}`}
-          </div>
-          <div>
-          { domStyle?.height && `height:${domStyle.height}`}
-          </div>
-          <div>
-          {domStyle?.backgroundColor && `background-color:${domStyle.backgroundColor}`}
-          </div>
-        </div>
-        </div>
-          <LayoutStyle />
-          <LocationStyle />
-          <BackgroundStyle />
-          <FrameStyle />
-      </div>
-    // :
-    //   <div>请先选中组件</div>
+        <SelectStyle currentNode={currentNode} />
+        <LayoutStyle currentNode={currentNode} onUpdateScale={onUpdateScale} onUpdateLayoutPattern={onUpdateLayoutPattern}/>
+        <LocationStyle />
+        <BackgroundStyle />
+        <FrameStyle />
+    </div>
   );
 }
 

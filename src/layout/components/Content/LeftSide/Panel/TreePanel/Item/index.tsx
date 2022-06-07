@@ -110,7 +110,6 @@ const Item = (props) => {
 
 
   const handlerChoose = () => {
-    console.log(item);
     changeStates({currentItem:item})
   }
 

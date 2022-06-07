@@ -1,18 +1,6 @@
 .wrap {
-  padding-right: 10px;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #eee;
   white-space: nowrap;
-}
-
-.editor {
-}
-.editorText {
-  display: flex;
-  justify-content: space-between;
-}
-.editorStyle {
-  display: flex;
-  flex-direction: column;
+  padding-bottom: 20px;
 }

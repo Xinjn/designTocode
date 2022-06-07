@@ -7,11 +7,11 @@
   background: #edeff3;
 }
 .layoutPattern {
-  display: flex;
-  justify-content: space-between;
 }
-button {
+.layoutPatternItem {
+  padding: 0;
 }
+
 .layoutMargin {
   display: flex;
 }

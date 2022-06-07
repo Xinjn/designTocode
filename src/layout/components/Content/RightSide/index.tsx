@@ -1,20 +1,15 @@
 import React, { useState } from "react";
+import errorBoundary from "../../errorBoundary";
 import styles from "./index.css"
+// Components
 import Header from "./Header";
 import Content from "./Content";
-import errorBoundary from "../../errorBoundary";
-import { Store } from "../../../../store";
 
-const RightSide = () => {
-  // 总数据
-  const store = Store.useContainer();
-  const { states, changeStates } = store;
-  const {currentDom} = states
-  
+const RightSide = ({props}) => {
   return (
     <div className={styles.wrap}>
       <Header />
-      <Content dom={currentDom}/>
+      <Content />
     </div>
   );
 }

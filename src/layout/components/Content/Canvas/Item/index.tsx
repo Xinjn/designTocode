@@ -110,8 +110,9 @@ const Item = (props) => {
 
 
   const handlerChoose = (e) => {
-    const dom = e.target
-    changeStates({currentDom:dom})
+    // 阻止捕获和冒泡阶段中当前事件的进一步传播
+    e.stopPropagation()
+    changeStates({currentId:item.id})
   }
 
   const render = () => {

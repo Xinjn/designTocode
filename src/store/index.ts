@@ -6,11 +6,49 @@ import { traverse } from "../util";
 
 // 初始节点树
 const initialCodeTree = {
-  componentName: "Page",
-  props: {
-    style: {},
+  "componentName": "Page",
+  "id":uuid(),
+  "props": {
+    "style": {
+      "display": "inline",
+      "width": "375px",
+      "height": "500px"
+    },
+    "className": "page"
   },
-  children: [],
+  "rect": {
+    "x": 0,
+    "y": 0,
+    "width": 375,
+    "height": 500
+  },
+  "children": [{
+    "componentName": "Div",
+    "id": "3a26d9c2-a7b3-4601-af78-bd254b94493f",
+    "props": {
+      "style": {
+        "position": "relative",
+        "backgroundColor": "#D8D8D8",
+        "width": "100px",
+        "height": "100px"
+      },
+      "className": "mask1"
+    },
+    "rect": {
+      "x": 0,
+      "y": 0,
+      "width": 100,
+      "height": 100
+    },
+    "fileName": "mod_0",
+    "smart": {
+      "layerProtocol": {
+        "module": {
+          "type": "smartModule"
+        }
+      }
+    }
+  }],
 };
 
 // 总数据
@@ -22,7 +60,7 @@ const useStore = (
     schemaPanel: true, // schema面板
     codePanel: true, // 代码面板
     output: '', // 出码
-    currentDom:null // 当前组件
+    currentId:'' // 目标节点ID
   }
 ) => {
   const [states, setStates] = useState(initialState);

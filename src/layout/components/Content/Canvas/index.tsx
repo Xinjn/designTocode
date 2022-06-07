@@ -57,21 +57,19 @@ const Canvas = (props) => {
     },
   },[])
 
-  const handlerChoose = (e) => {
-    const dom = e.target
-    changeStates({currentDom:dom})
-
+  const onCanvas = () => {
+    changeStates({currentId:codeTree.id})
   }
+
   return ( 
     <div className={styles.wrap} >
-      
         {/* 画布 */}
         <div 
+          id="canvas"
           className={styles.canvas} 
-        ref={drop}
-        onClick={(e)=>handlerChoose(e)}
-      >
-        
+          ref={drop}
+          onClick={onCanvas}
+        >
           {
             codeTree?.children.map((item,index)=>{
               return (
