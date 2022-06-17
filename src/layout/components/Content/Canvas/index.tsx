@@ -73,7 +73,7 @@ const Canvas = (props) => {
           {
             codeTree?.children.map((item,index)=>{
               return (
-                  <Item 
+                <Item 
                     key={index} 
                     item={item} 
                     hoverId={item.id} // 获取hover项的index

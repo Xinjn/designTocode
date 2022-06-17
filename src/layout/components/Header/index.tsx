@@ -18,7 +18,7 @@ const Header = () => {
   
   return (
     <div className={styles.wrap}>
-  
+      
         <div className={styles.logo}>DesignToCode</div>
         <div className={styles.option}>
                 <div className={styles.pcOrMobile}>

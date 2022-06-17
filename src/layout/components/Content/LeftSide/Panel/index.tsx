@@ -32,7 +32,7 @@ const Panel = (props) => {
           </DndProvider>
       )}
       {schemaPanel && <ShemaPanel />}
-      {/* {codePanel && <CodePanel />  } */}
+      {codePanel && <CodePanel />  }
     </div>
   );
 }

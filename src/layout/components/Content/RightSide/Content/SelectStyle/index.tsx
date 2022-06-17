@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import errorBoundary from "../../../../errorBoundary";
 import styles from "./index.css"
 
+
 const SelectStyle = (props) => {
   const {currentNode} = props
-  console.log('currentNode',currentNode);
   
   return (
     <div className={styles.select}>

@@ -11,7 +11,6 @@ import FrameStyle from "./FrameStyle";
 import SelectStyle from "./SelectStyle";
 import { traverse } from "../../../../../util";
 
-
 const Content = ({props}) => {
     // 总数据
     const store = Store.useContainer();
@@ -43,28 +42,36 @@ const Content = ({props}) => {
       getCurrentNode()
     },[codeTree])
 
-  const onUpdateLayoutPattern = (value) => {
-    if (!currentNode) return alert('未选中节点')
-    
-    // 改变JSON
-    if (value) {
-      const codeTree2 = codeTree
-      codeTree2.props.style[`display`] = value;
-      changeStates({codeTree:{...codeTree,...codeTree2}})
+    // 更新布局
+    const onUpdateLayoutPattern = (value) => {
+      if (!currentNode) return alert('未选中节点')
+      
+      // 改变JSON
+      if (value) {
+        const codeTree2 = codeTree
+        codeTree2.props.style[`display`] = value;
+        changeStates({codeTree:{...codeTree,...codeTree2}})
+      }
     }
-  }
   
-  const onUpdateScale = (name, value) => {
-    if (!currentNode) return alert('未选中节点')
-    
-    // 改变JSON
-    if (name && value) {
-      const codeTree2 = codeTree
-      codeTree2.props.style[`${name}`] = value;
-      codeTree2?.rect[`${name}`] ? codeTree2.rect[`${name}`] = parseInt(value,10) : null
-      changeStates({codeTree:{...codeTree,...codeTree2}})
+    //更新尺寸
+    const onUpdateScale = (name, value) => {
+      if (!currentNode) return alert('未选中节点')
+      
+      // 改变shema
+      if (name && value) {
+        const codeTree2 = codeTree
+        traverse(codeTree2, item => {
+          if (item.id === currentId) {
+            item.props.style[`${name}`] = value;
+
+            item?.rect[`${name}`] ? item.rect[`${name}`] = parseInt(value,10) : null
+
+          }
+        })
+          changeStates({codeTree:{...codeTree,...codeTree2}})
+      }
     }
-  }
 
 
   return (

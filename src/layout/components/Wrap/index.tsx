@@ -5,47 +5,63 @@ import styles from "./index.css"
 import { Store } from "../../../store";
 // DSL(react)
 import DSL from "../../../Test";
+import { traverse } from "../../../util";
 
 const Wrap = (content) => {
   // 总数据
   const store = Store.useContainer();
   const { states, changeStates } = store;
-  const { codeTree } = states
+  const { codeTree,currentId } = states
   
-  const rander = () => {
-    // 渲染根节点
-    randerRoot()
+  const getCurrentNode = () => {
+    const currentNode = null
+    traverse(codeTree, item => {
+      if (item.id === currentId) {
+        console.log(item);
+        
+      }
+    })
+    // return currentNode
   }
 
-  const randerRoot = () => {
-    const root = codeTree?.props?.style
-
-    if (JSON.stringify(root) === '{}') {
-      return;
+  useEffect(() => {
+    if (currentId) {
+      getCurrentNode()
     }
+  },[currentId])
 
-    // 获取Canvas
-    const canvas = document.getElementById('canvas')
-    // 设置根样式
-    for (let [key, value] of Object.entries(root)) {
-      canvas.style.cssText += `${key}: ${value}`
-    } 
-
-    console.log('画板样式',root);
+  const randerStyle = () => {
+    // 渲染根节点
+    // randerRoot()
   }
+
+  // const randerRoot = () => {
+  //   const root = codeTree?.props?.style
+
+  //   if (JSON.stringify(root) === '{}') {
+  //     return;
+  //   }
+
+  //   // 获取Canvas
+  //   const canvas = document.getElementById('canvas')
+  //   // 设置根样式
+  //   for (let [key, value] of Object.entries(root)) {
+  //     canvas.style.cssText += `${key}: ${value}`
+  //   } 
+
+  // }
   
   useEffect(() => {
-    
     if (codeTree) {
-      // 渲染
-      rander()
+      // 渲染层
+      randerStyle()
       
       // 出码
-      // const output = DSL(JSON.parse(JSON.stringify(codeTree)))
-      // console.log('出码：',output);
-      // const panelDisplay = output.panelDisplay[0]
-      // const panelValue = panelDisplay['panelValue']
-      // changeStates({output:panelValue})
+      const output = DSL(JSON.parse(JSON.stringify(codeTree)))
+      console.log('出码：',output);
+      const panelDisplay = output.panelDisplay[0]
+      const panelValue = panelDisplay['panelValue']
+      changeStates({output:panelValue})
     }
   },[codeTree])
 

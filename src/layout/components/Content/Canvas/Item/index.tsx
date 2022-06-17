@@ -18,6 +18,8 @@ const Item = (props) => {
     replaceNode,  // 替换项
   } = props
 
+  console.log('item',item);
+  
   // 总数据
   const store = Store.useContainer();
   const { states, changeStates } = store;
@@ -119,9 +121,10 @@ const Item = (props) => {
     return (
       <>
          {item?.componentName}
-         {item.children && item?.children.map((item,index)=>{
+        {item.children && item?.children.map((item, index) => {
+          
            return (
-            <Item 
+             <Item 
             key={index} 
             item={item} 
             hoverId={item.id} // 获取hover项的index
@@ -138,7 +141,7 @@ const Item = (props) => {
   }
 
   return ( 
-      <div className={styles.wrap} ref={ref} onClick={handlerChoose}>
+      <div className={`${styles.wrap}`} ref={ref} onClick={handlerChoose} data-className={item?.props?.className}>
         {render()}
       </div>
   );

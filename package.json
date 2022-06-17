@@ -17,7 +17,6 @@
     "@babel/preset-typescript": "^7.17.12",
     "@imgcook/dsl-helper": "0.0.1",
     "@uiw/react-codemirror": "^4.7.0",
-    "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^7.0.3",
@@ -58,7 +57,6 @@
   },
   "browserslist": [
     ">0.2%",
-    "not dead",
     "ie >= 9",
     "not op_mini all"
   ]
