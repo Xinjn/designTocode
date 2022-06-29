@@ -1,0 +1,9 @@
+/* @value colors: "./colors.css";
+@value blue, red, green from colors; */
+.content {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #eee;
+  position: relative;
+}

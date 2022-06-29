@@ -12,9 +12,10 @@ const Content = (props) => {
   return (
     <div className={styles.content}>
       <LeftSide />
-        <DndProvider backend={HTML5Backend}>
+        {/* <DndProvider backend={HTML5Backend}>
           <Canvas />
-        </DndProvider>
+        </DndProvider> */}
+      <iframe src="http://localhost:3000/#/canvas" style={{ width: '100vw' }} />
       <RightSide />
     </div>
   );
