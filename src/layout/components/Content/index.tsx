@@ -15,7 +15,7 @@ const Content = (props) => {
         {/* <DndProvider backend={HTML5Backend}>
           <Canvas />
         </DndProvider> */}
-      <iframe src="http://localhost:3000/#/canvas" style={{ width: '100vw' }} />
+        <iframe src="http://localhost:8888/#/canvas" style={{ width: '100vw' }} id="canvasIframe"/>
       <RightSide />
     </div>
   );

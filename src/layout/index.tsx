@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./index.css"
 import errorBoundary from "./components/errorBoundary"
 // Store
@@ -17,33 +17,42 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
+
+
 function Layout() {
+
+
+
     return (
       <HashRouter>
-      <Store.Provider>
-          <Wrap>
-              <Routes>
-                  <Route path="/" element={
-                      <>
-                          <Header />
-                          <Content />
-                      </>
-                  } />
-                  {/* iframe:canvas页面 */}
-                  <Route path='/canvas' element={
-                      <div className={styles.content}>
-                       <DndProvider backend={HTML5Backend}>
-                          <Canvas />
-                      </DndProvider>
-                      </div>
-                  } />
-                  {/*错误页面*/}
-                  <Route path="*" element={<main style={{ padding: "1rem" }}><h1>404!</h1></main>}
-                  />
-              </Routes>
-          </Wrap>
-      </Store.Provider>
-  </HashRouter>
+            <Store.Provider>
+                <Wrap>
+                        <Routes>
+                            <Route path="/" element={
+                                <>
+                                    <Header />
+                                    <Content />
+                                </>
+                            } />
+                            {/* iframe:canvas页面 */}
+                            
+                            <Route 
+                                path='/canvas'
+                            element={
+                                <div className={styles.content}>
+                                    <DndProvider backend={HTML5Backend}>
+                                        <Canvas />
+                                    </DndProvider>
+                                </div>
+                            } />
+                        
+                            {/*错误页面*/}
+                            <Route path="*" element={<h1>404!</h1>}
+                            />
+                        </Routes>
+                    </Wrap>
+            </Store.Provider>
+        </HashRouter>
     )
 }
 

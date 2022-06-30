@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { createContainer } from "unstated-next";
 // util
 import { v1 as uuid } from 'uuid';
@@ -7,7 +7,8 @@ import { traverse } from "../util";
 // 初始节点树
 const initialCodeTree = {
   "componentName": "Page",
-  "id":uuid(),
+  // "id":uuid(),
+  "id":'123456789',
   "props": {
     "style": {
       "display": "inline",
@@ -237,8 +238,19 @@ const useStore = (
     changeStates({codeTree:{...codeTree,...codeTree2}})
   }
 
+  // 节点数据改变：通信子iframe进行更新
+  useEffect(() => {
+      const childIframe = document.getElementById('canvasIframe');
+      if(!childIframe)return 
+      if (states.codeTree.children.length > 0) {
+          childIframe?.contentWindow?.postMessage(states?.codeTree,'http://localhost:8888/#/canvas'); 
+      }
+  },[states])
+
   return { states, changeStates , appendNode ,appendChildrenNode ,replaceNode, removeChildNode};
 };
+
+
 
 export const Store = createContainer(useStore);
 

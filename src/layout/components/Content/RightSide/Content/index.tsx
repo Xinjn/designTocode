@@ -31,7 +31,7 @@ const Content = ({props}) => {
       })
     }
   
-    useEffect(() => {
+  useEffect(() => {
       if (currentId) {
         getCurrentNode()
       }
@@ -75,7 +75,8 @@ const Content = ({props}) => {
 
 
   return (
-     <div className={styles.wrap}> 
+    <div className={styles.wrap}> 
+      currentId:{currentId}
         <SelectStyle currentNode={currentNode} />
         <LayoutStyle currentNode={currentNode} onUpdateScale={onUpdateScale} onUpdateLayoutPattern={onUpdateLayoutPattern}/>
         <LocationStyle />

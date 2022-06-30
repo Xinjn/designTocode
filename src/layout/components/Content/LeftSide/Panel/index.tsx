@@ -12,8 +12,6 @@ import CodePanel from "./CodePanel";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
-
-
 const Panel = (props) => {
   const store = Store.useContainer();
   const { states, changeStates } = store;
@@ -26,13 +24,13 @@ const Panel = (props) => {
               <ComponentsPanel />
           </DndProvider>
       )}
-            {treePanel && (
+      {treePanel && (
         	<DndProvider backend={HTML5Backend}>
               <TreePanel />
           </DndProvider>
       )}
       {schemaPanel && <ShemaPanel />}
-      {codePanel && <CodePanel />  }
+      {/* {codePanel && <CodePanel />  } */}
     </div>
   );
 }

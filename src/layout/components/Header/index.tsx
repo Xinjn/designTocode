@@ -5,16 +5,16 @@ import { Store } from "../../../store";
 
 const Header = () => {
 
-    // 总数据
-    const store = Store.useContainer();
-    const { states, changeStates } = store;
-    const { codeTree } = states
-  
-    const [shcema,setSchema] = useState(codeTree)
-  
-    const onSave = () => {
-      changeStates({codeTree:{...codeTree,...shcema}})
-    }
+  // 总数据
+  const store = Store.useContainer();
+  const { states, changeStates } = store;
+  const { codeTree } = states
+
+  const [shcema,setSchema] = useState(codeTree)
+
+  const onSave = () => {
+    changeStates({codeTree:{...codeTree,...shcema}})
+  }
   
   return (
     <div className={styles.wrap}>

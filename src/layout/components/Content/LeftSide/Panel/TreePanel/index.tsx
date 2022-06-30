@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import errorBoundary from "../../../../errorBoundary";
 import styles from "./index.css"
 import { Store } from "../../../../../../store";
@@ -57,7 +57,7 @@ const DomTree = (props) => {
         removeChildNode(item.id)
       }
     }
-  },[])
+  }, [])
 
   return ( 
     <div className={styles.wrap} >

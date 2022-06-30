@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import errorBoundary from "../../errorBoundary";
 import styles from "./index.css"
 // Store
@@ -22,8 +22,29 @@ const Canvas = (props) => {
     removeChildNode   // 移除子项
   } = store;
 
-  const { codeTree } = states
+  const [codeTree,setCodeTree] = useState(states?.codeTree)
 
+
+  // 父框架回调
+  const iframeParentCallback = (event) => {
+
+    const codeTreeParent = event.data
+      // 更新内部框架store中codeTree数据
+      if (codeTreeParent.id) {
+          changeStates({codeTree:{ ...codeTreeParent }})
+      }
+  }
+
+  // 监听父框架回调
+  useEffect(() => {
+    window.addEventListener("message", iframeParentCallback, false);
+  },[])
+
+    // 更新UI
+    useEffect(() => {
+        setCodeTree({ ...states?.codeTree })
+    },[states?.codeTree])
+    
   // 放置
   const [
     { 

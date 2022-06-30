@@ -18,7 +18,6 @@ const Item = (props) => {
     replaceNode,  // 替换项
   } = props
 
-  console.log('item',item);
   
   // 总数据
   const store = Store.useContainer();
@@ -114,7 +113,10 @@ const Item = (props) => {
   const handlerChoose = (e) => {
     // 阻止捕获和冒泡阶段中当前事件的进一步传播
     e.stopPropagation()
-    changeStates({currentId:item.id})
+    // changeStates({currentId:item.id})
+    
+    // 通知父框架
+    window.parent && window.parent.postMessage({ currentId: item.id }, 'http://localhost:8888/');
   }
 
   const render = () => {
@@ -141,7 +143,9 @@ const Item = (props) => {
   }
 
   return ( 
-      <div className={`${styles.wrap}`} ref={ref} onClick={handlerChoose} data-className={item?.props?.className}>
+    <div className={`${styles.wrap}`} ref={ref} onClick={handlerChoose}
+      data-className={item?.props?.className}
+    >
         {render()}
       </div>
   );
