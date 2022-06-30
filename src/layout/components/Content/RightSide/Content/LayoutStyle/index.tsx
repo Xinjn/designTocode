@@ -32,7 +32,6 @@ const LayoutStyle = (props) => {
 
   }
 
-  const onUpdate = () => { }
 
   return (
         <div className={styles.layout}>

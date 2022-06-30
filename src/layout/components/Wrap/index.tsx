@@ -13,45 +13,31 @@ const Wrap = (content) => {
   const { states, changeStates } = store;
   const { codeTree } = states
 
+//   const getCurrentNode = (id) => {
+//     traverse(codeTree, (item) => {
+//       if(item.id)
+//     })
+// }
+
+
   // 监听子框架回调函数
   const iframeChildCallback = (event) => {
+    
     // 设置当前选中元素
-    const { data:{currentId} } = event
+    const { data: { currentId } } = event
+    if (!currentId) return 
+    
     changeStates({currentId})
+  
   }
   
   // 监听子框架回调函数
   useEffect(() => {
       window.addEventListener("message", iframeChildCallback, false);
   },[])
-
-
-  const randerStyle = () => {
-    // 渲染根节点
-    // randerRoot()
-  }
-
-  // const randerRoot = () => {
-  //   const root = codeTree?.props?.style
-
-  //   if (JSON.stringify(root) === '{}') {
-  //     return;
-  //   }
-
-  //   // 获取Canvas
-  //   const canvas = document.getElementById('canvas')
-  //   // 设置根样式
-  //   for (let [key, value] of Object.entries(root)) {
-  //     canvas.style.cssText += `${key}: ${value}`
-  //   } 
-
-  // }
   
   useEffect(() => {
     if (codeTree) {
-      // 渲染层
-      randerStyle()
-      
       // // 出码
       // const output = DSL(JSON.parse(JSON.stringify(codeTree)))
       // console.log('出码：',output);
@@ -59,7 +45,6 @@ const Wrap = (content) => {
       // const panelValue = panelDisplay['panelValue']
       // changeStates({ output: panelValue })
       
-
     }
   },[codeTree])
 

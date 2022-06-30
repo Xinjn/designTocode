@@ -18,10 +18,7 @@ import {
     Route,
 } from "react-router-dom";
 
-
 function Layout() {
-
-
 
     return (
       <HashRouter>
@@ -35,10 +32,9 @@ function Layout() {
                                 </>
                             } />
                             {/* iframe:canvas页面 */}
-                            
                             <Route 
                                 path='/canvas'
-                            element={
+                                element={
                                 <div className={styles.content}>
                                     <DndProvider backend={HTML5Backend}>
                                         <Canvas />

@@ -1,4 +1,4 @@
-import { useState ,useEffect} from "react";
+import { useState ,useEffect, useRef} from "react";
 import { createContainer } from "unstated-next";
 // util
 import { v1 as uuid } from 'uuid';
@@ -7,8 +7,8 @@ import { traverse } from "../util";
 // 初始节点树
 const initialCodeTree = {
   "componentName": "Page",
-  // "id":uuid(),
-  "id":'123456789',
+  // // "id":uuid(),
+  // "id":'123456789',
   "props": {
     "style": {
       "display": "inline",
@@ -61,7 +61,7 @@ const useStore = (
     schemaPanel: true, // schema面板
     codePanel: true, // 代码面板
     output: '', // 出码
-    currentId:'' // 目标节点ID
+    currentId: '', // 目标节点ID
   }
 ) => {
   const [states, setStates] = useState(initialState);
@@ -70,6 +70,7 @@ const useStore = (
     setStates((states) => Object.assign({}, states, newStates));
   };
 
+  const iframeNode = useRef(null)
 
   // 添加新项
   const appendNode = (item) => {
@@ -240,12 +241,9 @@ const useStore = (
 
   // 节点数据改变：通信子iframe进行更新
   useEffect(() => {
-      const childIframe = document.getElementById('canvasIframe');
-      if(!childIframe)return 
-      if (states.codeTree.children.length > 0) {
-          childIframe?.contentWindow?.postMessage(states?.codeTree,'http://localhost:8888/#/canvas'); 
-      }
-  },[states])
+    const childIframe = document.getElementById('canvasIframe') || window.parent.document.getElementById('canvasIframe')
+    childIframe?.contentWindow?.postMessage(states, 'http://localhost:8888/#/canvas'); 
+  },[states.codeTree])
 
   return { states, changeStates , appendNode ,appendChildrenNode ,replaceNode, removeChildNode};
 };

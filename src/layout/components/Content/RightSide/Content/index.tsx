@@ -20,15 +20,23 @@ const Content = ({props}) => {
     const [currentNode, setCurrentNode] = useState(null)
   
     // 获取目标节点
-    const getCurrentNode = () => {
-      traverse(codeTree, item => {
-        if (item.id === currentId) {
-          setCurrentNode(item)
-          
-          return false
-        }
-        return true
-      })
+  const getCurrentNode = () => {
+
+      if (currentId === 'page') {
+        setCurrentNode(codeTree)
+        return false
+      } else {
+        traverse(codeTree, item => {
+          if (item.id === currentId) {
+            setCurrentNode(item)
+            console.log('item',item);
+            
+            return false
+          }
+          return true
+        })
+      }
+     
     }
   
   useEffect(() => {
@@ -61,15 +69,25 @@ const Content = ({props}) => {
       // 改变shema
       if (name && value) {
         const codeTree2 = codeTree
-        traverse(codeTree2, item => {
-          if (item.id === currentId) {
-            item.props.style[`${name}`] = value;
 
-            item?.rect[`${name}`] ? item.rect[`${name}`] = parseInt(value,10) : null
+        if (currentId === 'page') {
 
-          }
-        })
-          changeStates({codeTree:{...codeTree,...codeTree2}})
+          codeTree2.props.style[`${name}`] = value;
+          codeTree2?.rect[`${name}`] ? codeTree2.rect[`${name}`] = parseInt(value, 10) : null
+          
+        } else {
+          traverse(codeTree2, item => {
+          
+            if (item.id === currentId) {
+              item.props.style[`${name}`] = value;
+  
+              item?.rect[`${name}`] ? item.rect[`${name}`] = parseInt(value,10) : null
+            }
+
+          })
+        }
+
+        changeStates({codeTree:{...codeTree,...codeTree2}})
       }
     }
 

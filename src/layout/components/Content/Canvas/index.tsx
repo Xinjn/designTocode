@@ -15,24 +15,23 @@ const Canvas = (props) => {
   const store = Store.useContainer();
   const {
     states,
-    changeStates,
     appendNode,  // 添加新项
     appendChildrenNode,  // 追加子项
     replaceNode, // 替换项
     removeChildNode   // 移除子项
   } = store;
 
+  // 仅第一次从数据源获取
   const [codeTree,setCodeTree] = useState(states?.codeTree)
 
-
   // 父框架回调
-  const iframeParentCallback = (event) => {
+  const iframeParentCallback = (event) => {    
+    const {codeTree,currentId} = event.data
 
-    const codeTreeParent = event.data
-      // 更新内部框架store中codeTree数据
-      if (codeTreeParent.id) {
-          changeStates({codeTree:{ ...codeTreeParent }})
-      }
+    if (codeTree?.children) {
+      setCodeTree({ ...codeTree })
+      randerStyle(codeTree,currentId)
+    }
   }
 
   // 监听父框架回调
@@ -40,10 +39,24 @@ const Canvas = (props) => {
     window.addEventListener("message", iframeParentCallback, false);
   },[])
 
-    // 更新UI
-    useEffect(() => {
-        setCodeTree({ ...states?.codeTree })
-    },[states?.codeTree])
+
+  const randerStyle = (codeTree, currentId) => {
+    // 根节点
+    if (currentId === 'page') {
+      const root = codeTree?.props?.style
+      
+      if (JSON.stringify(root) === '{}') {
+        return;
+      }
+  
+      // 获取Canvas
+      const canvas = document.getElementById('canvas')
+      // 设置根样式
+      for (let [key, value] of Object.entries(root)) {
+        canvas.style.cssText += `${key}: ${value}`
+      } 
+    }
+  }
     
   // 放置
   const [
@@ -78,8 +91,9 @@ const Canvas = (props) => {
     },
   },[])
 
-  const onCanvas = () => {
-    changeStates({currentId:codeTree.id})
+  const onTirmParentIframe = () => {
+    // 通知父框架
+    window.parent && window.parent.postMessage({ currentId: 'page' }, 'http://localhost:8888/');
   }
 
   return ( 
@@ -89,7 +103,7 @@ const Canvas = (props) => {
           id="canvas"
           className={styles.canvas} 
           ref={drop}
-          onClick={onCanvas}
+          onClick={onTirmParentIframe}
         >
           {
             codeTree?.children.map((item,index)=>{
